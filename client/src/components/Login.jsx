@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Grid, Paper, TextField, Typography, Button } from '@mui/material'
 import axios from "axios"
 import { useNavigate } from 'react-router-dom';
+import { setIsLoggedIncontext } from '../App';
 
 function Login () {
+  const setIsLoggedIn = useContext(setIsLoggedIncontext)
   const heading = { fontSize:"2.5rem", fontWeight:"600"};
   const PaperStyle = { padding:"2rem", paddingBottom:"px", margin:"100px auto", borderRadius:"1rem", boxShadow:"10px 10px 10px" };
   const row = { display:"flex", marginTop:"2rem"}
@@ -21,6 +23,7 @@ function Login () {
         .then((response) => {
           if(response.data.user){
             console.log(response.data.user)
+            setIsLoggedIn(true)
             navigate("/home", { state: {user: response.data.user }})
 
           }
